@@ -21,7 +21,9 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::paginate(05);
+         //$comments = Comment::paginate(05);
+         //$comments = User::withCount('posts','comments','postlike')->get();
+         $comments = Comment::withCount('replies')->get();
         return response()->json([
             "status" => true,
             "message" => "Comment List",

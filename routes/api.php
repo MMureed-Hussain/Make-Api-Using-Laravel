@@ -8,6 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LikePostController;
+use App\Http\Controllers\DislikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('comments/replies', CommentController::class);
     Route::apiResource('medias', MediaController::class);
     Route::apiResource('likes', LikePostController::class);
+    Route::post('dislikes/{post}', [DislikeController::class , 'dislike']);
+
 });
 
 

@@ -24,12 +24,13 @@ class LikePostController extends Controller
      */
     public function index()
     {
-        $likes = PostLike::paginate(05);
+        $likes = Post::withCount('postlike')->get();
         return response()->json([
             "status" => true,
             "message" => "Post Likes List",
-           // "data" => $like
-            "data" => LikePostResource :: Collection($likes)
+            "data" => $likes
+            
+            //"data" => LikePostResource :: Collection($likes)
         ]);
     }
     /**
@@ -55,6 +56,7 @@ class LikePostController extends Controller
         }
 
         //$like = Auth::user()->post_likes()->create($request->all());
+       // if ($post->likes->contains('user_id', auth()->id())
         if (!(PostLike::where('user_id', $request->user_id)->where('post_id', $request->post_id)->first()) ) 
         {
           $like = PostLike::create([
